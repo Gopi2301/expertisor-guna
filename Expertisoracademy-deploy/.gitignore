@@ -1,0 +1,59 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# PHP dependencies
+api/vendor
+api/composer.lock
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.zip
+
+distdist.zip
+.env.local
+
+# Large files and build artifacts
+*.tar.gz
+*.webm
+*.mp4
+*.mov
+stats.html
+frontend-dist.zip
+
+# Deployment and backup files
+deploy_staging/
+deploy_dev_*.tar.gz
+staging_*.tar.gz
+backup_*.tar.gz
+
+# API tokens (keep structure, ignore tokens)
+api/zoho_tokens.json
+
+# Temporary and test files
+test_*.php
+check_tables.php
+*.broken
+
+# Local Environment and Secrets
+.env
+sso/.env
+docker-compose.override.yml

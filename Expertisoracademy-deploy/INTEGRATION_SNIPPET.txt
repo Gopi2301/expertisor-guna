@@ -1,0 +1,78 @@
+// Insert after Hero Section and before CTA Buttons Section in CourseEditor.jsx
+
+                {/* Icon Section */}
+                <div className="bg-[#111] rounded-xl border border-neutral-800 overflow-hidden">
+                    <SectionHeader
+                        title="Icon & Badge"
+                        section="icon"
+                        icon={Sparkles}
+                        expanded={expandedSections.icon}
+                        onToggle={toggleSection}
+                    />
+                    {expandedSections.icon && (
+                        <div className="p-6 space-y-6 border-t border-neutral-800">
+                            <IconSelector
+                                selectedIconId={course.icon_id || 'sparkles'}
+                                selectedColor={course.icon_color || '#FFF200'}
+                                onChange={({ iconId, color }) => {
+                                    setCourse(prev => ({
+                                        ...prev,
+                                        icon_id: iconId,
+                                        icon_color: color
+                                    }));
+                                }}
+                            />
+                        </div>
+                    )}
+                </div>
+
+                {/* Text Styling Section */}
+                <div className="bg-[#111] rounded-xl border border-neutral-800 overflow-hidden">
+                    <SectionHeader
+                        title="Text Highlighting"
+                        section="textStyling"
+                        icon={Palette}
+                        expanded={expandedSections.textStyling}
+                        onToggle={toggleSection}
+                    />
+                    {expandedSections.textStyling && (
+                        <div className="p-6 space-y-6 border-t border-neutral-800">
+                            {/* Title Highlighting */}
+                            <div>
+                                <h3 className="text-sm font-medium text-white mb-4">Title Highlighting</h3>
+                                <TextHighlighter
+                                    text={course.title || ''}
+                                    onChange={(text, highlights) => {
+                                        setCourse(prev => ({
+                                            ...prev,
+                                            title: text,
+                                            title_highlights: highlights
+                                        }));
+                                    }}
+                                    placeholder="Enter course title..."
+                                    label="Course Title"
+                                />
+                            </div>
+
+                            {/* Subtitle Highlighting */}
+                            <div className="pt-6 border-t border-neutral-800">
+                                <h3 className="text-sm font-medium text-white mb-4">Subtitle Highlighting</h3>
+                                <TextHighlighter
+                                    text={course.hero_data?.subheadline || ''}
+                                    onChange={(text, highlights) => {
+                                        setCourse(prev => ({
+                                            ...prev,
+                                            hero_data: {
+                                                ...prev.hero_data,
+                                                subheadline: text
+                                            },
+                                            subtitle_highlights: highlights
+                                        }));
+                                    }}
+                                    placeholder="Enter subtitle..."
+                                    label="Subtitle"
+                                />
+                            </div>
+                        </div>
+                    )}
+                </div>

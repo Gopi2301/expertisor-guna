@@ -1,0 +1,326 @@
+.frame {
+  width: 100%;
+  height: 500px;
+  position: relative;
+  background: radial-gradient(170.97% 65.56% at 84.73% 100%, #b18800, rgba(0, 0, 0, 0)), radial-gradient(91.79% 96.12% at 5.63% 100%, #a38200, rgba(0, 0, 0, 0)), linear-gradient(#151100, #151100);
+  border: 1px solid #4a3a00;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 80px 16px 40px;
+  gap: 24px;
+  text-align: left;
+  font-size: 40px;
+  color: #fff;
+  font-family: Inter, sans-serif;
+}
+
+.frame2 {
+  width: 699px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 32px;
+  max-width: 699px;
+  flex-shrink: 0;
+}
+
+.achievements-title {
+  width: 642px;
+  position: relative;
+  letter-spacing: 0.02em;
+  text-transform: capitalize;
+  font-weight: 600;
+  font-family: 'Clash Display Variable', 'Clash Display', sans-serif;
+  display: flex;
+  align-items: center;
+}
+
+.achievements-title-txt-container {
+  width: 100%;
+}
+
+.trial-and-error {
+  color: #fff200;
+}
+
+.frame-parent {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 16px;
+}
+
+.frame-icon {
+  height: 65px;
+  width: 155px;
+  position: relative;
+}
+
+.frame3 {
+  box-shadow: 0px 0px 12px rgba(255, 255, 255, 0.15) inset;
+  border-radius: 2000px;
+  background-color: rgba(255, 255, 255, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  box-sizing: border-box;
+  gap: 8px;
+  max-width: 311px;
+}
+
+.schedule-icon {
+  width: 24px;
+  position: relative;
+  max-height: 100%;
+}
+
+.architects-text {
+  position: relative;
+  line-height: 24px;
+}
+
+.architects-text2 {
+  flex: 1;
+  position: relative;
+  line-height: 24px;
+  color: #ff0909;
+}
+
+.frame4 {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  font-size: 18px;
+}
+
+.achievements-title2 {
+  align-self: stretch;
+  position: relative;
+  text-transform: capitalize;
+}
+
+.frame5 {
+  display: flex;
+  align-items: flex-start;
+  font-size: 14px;
+  color: #000;
+}
+
+.frame6 {
+  border-radius: 4px;
+  background: linear-gradient(90.7deg, #fff200, #fff876 29.76%, #fff200 54.66%, #fff876 78.37%, #fff200) padding-box, linear-gradient(91.31deg, #fff, rgba(255, 255, 255, 0)) border-box;
+  border: 1px solid transparent;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 13.5px 40px;
+  cursor: pointer;
+}
+
+.for-me-confirmation {
+  position: relative;
+  font-weight: 600;
+}
+
+.architects-text3 {
+  align-self: stretch;
+  position: relative;
+  font-size: 12px;
+}
+
+.frame-icon2 {
+  height: 500px;
+  width: 511px;
+  position: relative;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .frame {
+    flex-direction: column;
+    height: auto;
+    padding: 40px;
+  }
+
+  .frame2 {
+    width: 100%;
+    max-width: 100%;
+    align-items: center;
+    text-align: center;
+  }
+
+  .achievements-title {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .frame-icon2 {
+    width: 100%;
+    height: auto;
+    max-width: 400px;
+  }
+
+  .frame4 {
+    align-items: center;
+    text-align: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .frame {
+    padding: 0px 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: left;
+    font-size: 16px;
+    height: auto;
+    background: transparent;
+    /* Reset desktop background */
+    border: none;
+  }
+
+  .frame2 {
+    width: 100%;
+    max-width: 100%;
+    border-radius: 8px;
+    background: radial-gradient(170.97% 65.56% at 84.73% 100%, #b18800, rgba(0, 0, 0, 0)), radial-gradient(91.79% 96.12% at 5.63% 100%, #a38200, rgba(0, 0, 0, 0)), linear-gradient(#151100, #151100);
+    border: 1px solid #4a3a00;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 12px;
+    gap: 0;
+    /* Reset desktop gap */
+  }
+
+  /* Mobile specific adjustments for existing elements */
+
+  /* The image on mobile is class .frame-icon in the reference HTML, but currently .frame-icon is the SVG container. 
+     We need to be careful with class names. 
+     In current JSX: 
+     .frame-icon -> The containing div for "2 + LIVE PROCLASS"
+     .frame-icon2 -> The large speaker image on desktop.
+     
+     In reference HTML:
+     .frame-icon -> The Image
+     .frame-icon2 -> "Live Proclass" (the small one)
+     
+     I will handle this discrepancy in JSX by adding specific mobile classes or changing structure. 
+     For CSS, I'll add the styles for the structure I WILL build in JSX. 
+  */
+
+  .mobile-image {
+    align-self: stretch;
+    height: 341px;
+    position: relative;
+    max-width: 100%;
+    overflow: hidden;
+    flex-shrink: 0;
+    object-fit: cover;
+    border-radius: 8px 8px 0 0;
+    /* Assuming stylistic choice or as reference */
+  }
+
+  .mobile-content-wrapper {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    margin-top: -25px;
+    /* Overlap effect */
+    position: relative;
+    z-index: 10;
+  }
+
+  /* Hide desktop specific elements if needed using utility classes in JSX, or display: none here if they have unique classes */
+  .desktop-only {
+    display: none !important;
+  }
+
+  .mobile-only {
+    display: flex !important;
+  }
+
+  /* Re-styling existing components for mobile context */
+
+  .frame3 {
+    /* Timer container */
+    max-width: 311px;
+    width: 100%;
+    margin-bottom: 0;
+  }
+
+  .achievements-title {
+    /* H2 Title */
+    width: 100%;
+    position: relative;
+    font-size: 28px;
+    letter-spacing: 0.04em;
+    text-transform: capitalize;
+    font-weight: 600;
+    font-family: 'Clash Display Variable', 'Clash Display', sans-serif;
+    text-align: center;
+    display: inline-block;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+
+  .achievements-title2 {
+    /* Subtitle */
+    align-self: stretch;
+    position: relative;
+    font-size: 24px;
+    /* Previous size for subtitle */
+    text-transform: capitalize;
+    font-weight: 600;
+    text-align: center;
+    width: 100%;
+    display: block;
+    font-family: Inter, sans-serif;
+  }
+
+  .achievements-title span,
+  .achievements-title2 span {
+    display: inline;
+  }
+
+  .frame4 {
+    /* Wrapper for subtitle/button in desktop, might need reset */
+    align-items: center;
+    text-align: center;
+    width: 100%;
+  }
+
+  .frame6 {
+    /* Button container */
+    width: 100%;
+    box-sizing: border-box;
+    padding: 13.5px 16px;
+  }
+
+  .architects-text3 {
+    text-align: center;
+    font-size: 12px;
+  }
+
+  .frame-icon {
+    /* The Live Proclass Icon container */
+    /* In mobile reference this is .frame-icon2 and has 155x65 size. */
+    width: auto;
+    height: 65px;
+    margin-bottom: 0;
+  }
+}

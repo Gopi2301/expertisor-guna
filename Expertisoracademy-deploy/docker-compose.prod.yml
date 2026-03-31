@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  # PHP Backend API
+  backend:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    restart: always
+    environment:
+      - DB_HOST=${DB_HOST}
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASS=${DB_PASSWORD}
+    volumes:
+      - uploads:/var/www/html/uploads
+    networks:
+      - coolify
+
+  # Node.js SSO Service
+  sso:
+    build:
+      context: ./sso
+      dockerfile: Dockerfile
+    restart: always
+    environment:
+      - DB_HOST=${DB_HOST}
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASS=${DB_PASSWORD}
+      - PORT=5999
+    networks:
+      - coolify
+
+  # Vite Frontend
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - VITE_API_URL=${VITE_API_URL:-https://your-api-domain.com/api}
+        - VITE_SSO_URL=${VITE_SSO_URL:-https://your-sso-domain.com}
+    restart: always
+    volumes:
+      - uploads:/usr/share/nginx/html/uploads
+    depends_on:
+      - backend
+      - sso
+    networks:
+      - coolify
+
+networks:
+  coolify:
+    external: true
+
+volumes:
+  uploads:

@@ -1,0 +1,85 @@
+/* WithOutSystem Styles */
+
+/* Base/Desktop Styles can rely on Tailwind, but adding helper classes for toggling */
+.desktop-only {
+    display: flex !important;
+}
+
+.mobile-only {
+    display: none !important;
+}
+
+/* Mobile specific styling based on reference */
+@media (max-width: 768px) {
+    .desktop-only {
+        display: none !important;
+    }
+
+    .mobile-only {
+        display: flex !important;
+    }
+
+    .without-system-frame {
+        width: 100%;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+        text-align: left;
+        font-size: 14px;
+        color: #000;
+        font-family: Inter, sans-serif;
+        padding: 0 16px;
+        box-sizing: border-box;
+        background: transparent;
+        /* Assuming container bg handles it or reset */
+    }
+
+    .without-system-frame2 {
+        align-self: stretch;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        /* padding: 0px 16px; Reference says padding 0 16px for frame2, but frame already has it? 
+       Let's follow reference strictly: frame has padding, frame2 has padding. 
+       This double padding might be too much if not careful. 
+       Ref:
+       .frame { padding: 0px 16px; ... }
+       .frame2 { padding: 0px 16px; ... }
+       
+       I'll apply exactly as reference.*/
+        padding: 0px 16px;
+    }
+
+    .without-system-icon {
+        align-self: stretch;
+        height: 360px;
+        position: relative;
+        max-width: 100%;
+        overflow: hidden;
+        flex-shrink: 0;
+        object-fit: cover;
+        border-radius: 8px;
+        /* Optional: assuming some radius usually desired */
+    }
+
+    .without-system-frame4 {
+        align-self: stretch;
+        border-radius: 4px;
+        background: linear-gradient(90.7deg, #fff200, #fff876 29.76%, #fff200 54.66%, #fff876 78.37%, #fff200) padding-box, linear-gradient(91.31deg, #fff, rgba(255, 255, 255, 0)) border-box;
+        border: 1px solid transparent;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 13.5px 16px;
+        margin-top: 16px;
+        /* Gap from previous element if in same container, or distinct frame2s */
+    }
+
+    .without-system-confirmation {
+        position: relative;
+        font-weight: 600;
+    }
+}

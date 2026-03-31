@@ -1,0 +1,220 @@
+<?php
+/**
+ * Database Configuration
+ * IMPORTANT: Copy this file to config.php and update with your actual credentials
+ */
+
+// Database credentials - UPDATE THESE WITH YOUR ACTUAL VALUES
+define('DB_HOST', 'localhost');
+define('DB_NAME', 'yppgpgkj_dev_cms');
+define('DB_USER', 'yppgpgkj_dev_cms');
+define('DB_PASS', 'YOUR_DATABASE_PASSWORD_HERE');
+
+// JWT Configuration
+define('JWT_SECRET', 'your-super-secret-jwt-key-change-this-in-production');
+define('JWT_EXPIRY', 86400); // 24 hours in seconds
+
+// CORS Headers
+header('Access-Control-Allow-Origin: https://dev.expertisoracademy.in');
+header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
+header('Access-Control-Allow-Headers: Content-Type, Authorization');
+header('Access-Control-Allow-Credentials: true');
+header('Content-Type: application/json');
+
+// Handle preflight requests
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit();
+}
+
+/**
+ * Get database connection
+ */
+function getDB()
+{
+    try {
+        $dsn = "mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=utf8mb4";
+        $options = [
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+            PDO::ATTR_EMULATE_PREPARES => false,
+        ];
+        return new PDO($dsn, DB_USER, DB_PASS, $options);
+    } catch (PDOException $e) {
+        sendError('Database connection failed: ' . $e->getMessage(), 500);
+        exit();
+    }
+}
+
+/**
+ * Send JSON response
+ */
+function sendResponse($data, $code = 200)
+{
+    http_response_code($code);
+    echo json_encode(['success' => true, 'data' => $data, 'error' => null]);
+    exit();
+}
+
+/**
+ * Send error response
+ */
+function sendError($message, $code = 400)
+{
+    http_response_code($code);
+    echo json_encode(['success' => false, 'data' => null, 'error' => $message]);
+    exit();
+}
+
+/**
+ * Get request body as array
+ */
+function getRequestBody()
+{
+    $body = file_get_contents('php://input');
+    return json_decode($body, true) ?? [];
+}
+
+/**
+ * Generate URL-friendly slug
+ */
+function generateSlug($text)
+{
+    $text = strtolower($text);
+    $text = preg_replace('/[^a-z0-9]+/', '-', $text);
+    $text = trim($text, '-');
+    return $text;
+}
+
+/**
+ * Sanitize input
+ */
+function sanitizeInput($data)
+{
+    if (is_array($data)) {
+        return array_map('sanitizeInput', $data);
+    }
+    return htmlspecialchars(strip_tags(trim($data)), ENT_QUOTES, 'UTF-8');
+}
+
+/**
+ * Verify password
+ */
+function verifyPassword($password, $hash)
+{
+    return password_verify($password, $hash);
+}
+
+/**
+ * Base64 URL encode
+ */
+function base64UrlEncode($data)
+{
+    return rtrim(strtr(base64_encode($data), '+/', '-_'), '=');
+}
+
+/**
+ * Base64 URL decode
+ */
+function base64UrlDecode($data)
+{
+    return base64_decode(strtr($data, '-_', '+/'));
+}
+
+/**
+ * Generate JWT token
+ */
+function generateJWT($payload)
+{
+    $header = json_encode(['typ' => 'JWT', 'alg' => 'HS256']);
+    $payload['exp'] = time() + JWT_EXPIRY;
+    $payload = json_encode($payload);
+
+    $base64UrlHeader = base64UrlEncode($header);
+    $base64UrlPayload = base64UrlEncode($payload);
+
+    $signature = hash_hmac('sha256', $base64UrlHeader . "." . $base64UrlPayload, JWT_SECRET, true);
+    $base64UrlSignature = base64UrlEncode($signature);
+
+    return $base64UrlHeader . "." . $base64UrlPayload . "." . $base64UrlSignature;
+}
+
+/**
+ * Verify JWT token
+ */
+function verifyJWT($jwt)
+{
+    if (!$jwt) {
+        return null;
+    }
+
+    $tokenParts = explode('.', $jwt);
+    if (count($tokenParts) !== 3) {
+        return null;
+    }
+
+    list($base64UrlHeader, $base64UrlPayload, $base64UrlSignature) = $tokenParts;
+
+    $signature = base64UrlDecode($base64UrlSignature);
+    $expectedSignature = hash_hmac('sha256', $base64UrlHeader . "." . $base64UrlPayload, JWT_SECRET, true);
+
+    if (!hash_equals($signature, $expectedSignature)) {
+        return null;
+    }
+
+    $payload = json_decode(base64UrlDecode($base64UrlPayload), true);
+
+    if (!isset($payload['exp']) || $payload['exp'] < time()) {
+        return null;
+    }
+
+    return $payload;
+}
+
+/**
+ * Get authorization token from headers
+ */
+function getAuthToken()
+{
+    $headers = getallheaders();
+    
+    if (isset($headers['Authorization'])) {
+        $auth = $headers['Authorization'];
+        if (preg_match('/Bearer\s+(.*)$/i', $auth, $matches)) {
+            return $matches[1];
+        }
+    }
+    
+    return null;
+}
+
+/**
+ * Require authentication
+ */
+function requireAuth()
+{
+    $token = getAuthToken();
+    $payload = verifyJWT($token);
+
+    if (!$payload) {
+        sendError('Unauthorized', 401);
+    }
+
+    return $payload;
+}
+
+/**
+ * Polyfill for getallheaders() if not available
+ */
+if (!function_exists('getallheaders')) {
+    function getallheaders()
+    {
+        $headers = [];
+        foreach ($_SERVER as $name => $value) {
+            if (substr($name, 0, 5) == 'HTTP_') {
+                $headers[str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', substr($name, 5)))))] = $value;
+            }
+        }
+        return $headers;
+    }
+}

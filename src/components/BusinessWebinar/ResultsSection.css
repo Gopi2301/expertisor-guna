@@ -1,0 +1,46 @@
+.achievements-title {
+    width: 100%;
+    max-width: 800px;
+    /* Increased from 518px to prevent awkward wrapping */
+    /* Using max-width to avoid overflow on small tablet screens before 640px if any */
+    position: relative;
+    font-size: 40px;
+    letter-spacing: 0.02em;
+    text-transform: capitalize;
+    font-weight: 600;
+    font-family: 'Clash Display Variable', sans-serif;
+    text-align: center;
+    text-wrap: balance;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff200;
+    margin: 0 auto;
+}
+
+.achievements-title-txt-container {
+    width: 100%;
+    text-align: center;
+}
+
+.from-professionals-like {
+    color: #fff;
+}
+
+@media (max-width: 640px) {
+    .achievements-title {
+        width: 100%;
+        position: relative;
+        font-size: 28px !important;
+        letter-spacing: 0.04em !important;
+        font-weight: 600 !important;
+        font-family: 'Clash Display Variable', sans-serif !important;
+        text-align: center;
+        display: inline-block;
+        color: #fff200 !important;
+    }
+
+    .from-professionals-like {
+        color: #fff !important;
+    }
+}

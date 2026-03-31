@@ -1,0 +1,92 @@
+{
+  "summary": {
+    "desktop": {
+      "passed": 0,
+      "failed": 2,
+      "total": 2
+    },
+    "mobile": {
+      "passed": 0,
+      "failed": 2,
+      "total": 2
+    }
+  },
+  "results": [
+    {
+      "url": "http://localhost:4173/",
+      "device": "desktop",
+      "scores": {
+        "performance": 0,
+        "accessibility": 88,
+        "best-practices": 39,
+        "seo": 85
+      },
+      "metrics": {
+        "fcp": 0,
+        "lcp": 0,
+        "tbt": 0,
+        "cls": 0.6111786148238153,
+        "speedIndex": 0
+      },
+      "filePath": "C:\\Users\\gopin\\work\\Expertisoracademy\\lighthouse-reports\\__desktop_1772454863984.html",
+      "passed": false
+    },
+    {
+      "url": "http://localhost:4173/",
+      "device": "mobile",
+      "scores": {
+        "performance": 0,
+        "accessibility": 88,
+        "best-practices": 39,
+        "seo": 85
+      },
+      "metrics": {
+        "fcp": 0,
+        "lcp": 0,
+        "tbt": 0,
+        "cls": 0,
+        "speedIndex": 0
+      },
+      "filePath": "C:\\Users\\gopin\\work\\Expertisoracademy\\lighthouse-reports\\__mobile_1772454980473.html",
+      "passed": false
+    },
+    {
+      "url": "http://localhost:4173/proclass/ssr",
+      "device": "desktop",
+      "scores": {
+        "performance": 31,
+        "accessibility": 89,
+        "best-practices": 36,
+        "seo": 83
+      },
+      "metrics": {
+        "fcp": 3657.0299,
+        "lcp": 6236.2535,
+        "tbt": 6991.035900000001,
+        "cls": 0,
+        "speedIndex": 17370.919703629716
+      },
+      "filePath": "C:\\Users\\gopin\\work\\Expertisoracademy\\lighthouse-reports\\_proclass_ssr_desktop_1772455078312.html",
+      "passed": false
+    },
+    {
+      "url": "http://localhost:4173/proclass/ssr",
+      "device": "mobile",
+      "scores": {
+        "performance": 16,
+        "accessibility": 89,
+        "best-practices": 36,
+        "seo": 83
+      },
+      "metrics": {
+        "fcp": 6833.031149999999,
+        "lcp": 14820.332350000004,
+        "tbt": 671.0000000000027,
+        "cls": 0.7083839611178615,
+        "speedIndex": 10538.014778967441
+      },
+      "filePath": "C:\\Users\\gopin\\work\\Expertisoracademy\\lighthouse-reports\\_proclass_ssr_mobile_1772455162387.html",
+      "passed": false
+    }
+  ]
+}

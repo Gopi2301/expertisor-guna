@@ -1,0 +1,911 @@
+/* === Business Webinar Onboarding Styles === */
+.onboarding-root {
+  position: relative;
+  min-height: 100vh;
+  width: 100vw;
+  font-family: 'Inter', sans-serif;
+  background: #000;
+  color: #fff;
+  overflow-x: hidden;
+}
+
+/* Mobile-optimized image utility used by ResultsSection */
+.image-icon {
+  flex: 1;
+  width: 100%;
+  position: relative;
+  border-radius: 2.81px;
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
+  flex-shrink: 0;
+  object-fit: cover;
+  display: block;
+} 
+
+.mobile-gradient-card {
+  border-radius: 16px;
+  background: linear-gradient(180deg, #1A1500 0%, #302700 100%);
+  box-shadow: 0 0 39px 0 rgba(255, 168, 168, 0.20) inset;
+}
+
+@media (min-width: 768px) {
+  .md\:no-gradient {
+    background: none;
+    box-shadow: none;
+    border-radius: 0; /* Or whatever your desktop default is */
+  }
+}
+
+
+
+
+
+/* .onboarding-bg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  background: 
+    radial-gradient(circle at 50% 40%, rgba(20, 20, 0, 0.5) 0%, #000000 80%),
+    url('/business-webinar/onboarding/Rectangle.svg');
+  background-position: center top, center;
+  background-repeat: no-repeat;
+  background-size: cover, cover;
+  mix-blend-mode: normal;
+} */
+
+
+
+.onboarding-bg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+
+  background:
+    /* Top dark vignette */
+    radial-gradient(circle at 50% 40%, rgba(20, 20, 0, 0.5) 0%, #000000 80%),
+
+    /* Your gold glow */
+    radial-gradient(56.81% 56.81% at 50% 3.57%, #4A3F00 0%, rgba(5, 4, 0, 0) 100%),
+
+    /* Background image */
+    url('/business-webinar/onboarding/Rectangle.svg');
+
+  background-position: center top, center top, center, center;
+  background-repeat: no-repeat;
+  background-size: cover, cover, cover, cover;
+  mix-blend-mode: normal;
+}
+
+
+
+
+
+
+
+
+
+.onboarding-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 56px;
+  width: 100vw;
+  max-width: 998px;
+  margin: 0 auto;
+  padding-top: 67px;
+}
+
+
+.onboarding-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+}
+.onboarding-logo img {
+  height: 65px;
+  width: 155px;
+  object-fit: contain;
+}
+.onboarding-title {
+  font-family: 'Clash Display Variable', sans-serif;
+  font-weight: 600;
+  font-size: 50px;
+  text-align: center;
+  letter-spacing: 1px;
+  color: #fff;
+  margin: 0;
+  text-transform: capitalize;
+}
+
+.onboarding-highlight {
+  color: #fff200;
+}
+.onboarding-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 2000px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  box-shadow: 0 0 12px 0 rgba(255,255,255,0.15) inset;
+}
+.onboarding-badge-dot {
+  width: 24px;
+  height: 24px;
+}
+.onboarding-form-card {
+  background: rgba(0,0,0,0.75);
+  border: 1px solid #2d2d2d;
+  border-radius: 16px;
+  padding: 24px;
+  /* width: 437px; */
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  box-shadow: 0 0 12px 0 rgba(255,255,255,0.10) inset;
+}
+.onboarding-form-title {
+  font-family: 'Clash Display Variable', sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #fff;
+  margin-bottom: 8px;
+}
+.onboarding-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.onboarding-label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: #9d9d9d;
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+}
+.onboarding-input {
+  background: rgba(29,29,29,0.8);
+  border-radius: 4px;
+  border: none;
+  padding: 8px 12px;
+  color: #fff;
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+  outline: none;
+  margin-top: 2px;
+}
+.onboarding-phone-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.onboarding-country-picker {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(29,29,29,0.8);
+  border-radius: 4px;
+  padding: 8px 12px;
+  color: #fff;
+  font-size: 14px;
+}
+.onboarding-flag {
+  font-size: 16px;
+}
+.onboarding-country-code {
+  margin-left: 2px;
+}
+.onboarding-arrow {
+  width: 16px;
+  height: 16px;
+  margin-left: 4px;
+}
+.onboarding-phone-input {
+  flex: 1;
+}
+.onboarding-checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+.onboarding-checkbox {
+  width: 20px;
+  height: 20px;
+  accent-color: #fff200;
+}
+.onboarding-checkbox-label {
+  color: #9d9d9d;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.onboarding-wa-icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 10000px;
+  margin-left: 8px;
+}
+.onboarding-submit-btn {
+  width: 100%;
+  background: linear-gradient(95.9deg, #fff200 0%, #FFF876 29.8%, #fff200 54.7%, #FFF876 78.4%, #fff200 100%);
+  color: #111;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  padding: 13.5px 0;
+  margin-top: 16px;
+  cursor: pointer;
+  transition: filter 0.2s, box-shadow 0.2s;
+}
+.onboarding-submit-btn:hover {
+  filter: brightness(1.05);
+  box-shadow: 0 0 12px 0 #fff20055;
+}
+.onboarding-confirm-card {
+  position: absolute;
+  left: 50%;
+  top: 120%;
+  transform: translate(-50%, -50%);
+  background: rgba(0,0,0,0.75);
+  border: 1px solid #2d2d2d;
+  border-radius: 16px;
+  padding: 24px;
+  width: 437px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: flex-start;
+  z-index: 2;
+  box-shadow: 0 0 12px 0 rgba(255,255,255,0.10) inset;
+}
+.onboarding-confirm-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.onboarding-confirm-title {
+  font-family: 'Clash Display Variable', sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #fff;
+}
+.onboarding-confirm-img {
+  height: 27px;
+  width: 64px;
+  object-fit: contain;
+}
+.onboarding-confirm-sub {
+  color: #8a8a8a;
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+  margin-bottom: 8px;
+}
+.onboarding-confirm-list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.onboarding-confirm-item {
+  display: flex;
+  justify-content: space-between;
+  color: #fff;
+  font-size: 16px;
+  font-family: 'Inter', sans-serif;
+}
+.onboarding-confirm-total-row {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  color: #fff;
+  font-size: 16px;
+  font-family: 'Inter', sans-serif;
+  border-top: 1px solid #1c1c1c;
+  padding-top: 16px;
+}
+.onboarding-confirm-discount-row {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  color: #fff200;
+  font-size: 16px;
+  font-family: 'Inter', sans-serif;
+}
+.onboarding-confirm-discount-label {
+  color: #fff200;
+}
+.onboarding-confirm-discount {
+  color: #ff0909;
+}
+.onboarding-confirm-final-row {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  background: rgba(255,242,0,0.05);
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  color: #fff;
+  align-items: center;
+  box-shadow: 0 0 12px 0 rgba(255,255,255,0.15) inset;
+}
+.onboarding-confirm-btn {
+  width: 100%;
+  background: linear-gradient(94.2deg, #fff200 0%, #FFF876 29.8%, #fff200 54.7%, #FFF876 78.4%, #fff200 100%);
+  color: #111;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  padding: 13.5px 0;
+  margin-top: 8px;
+  cursor: pointer;
+  transition: filter 0.2s, box-shadow 0.2s;
+}
+.onboarding-confirm-btn:hover {
+  filter: brightness(1.05);
+  box-shadow: 0 0 12px 0 #fff20055;
+}
+.onboarding-confirm-seats {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+.onboarding-confirm-seat-icon img {
+  width: 16px;
+  height: 16px;
+  background: linear-gradient(90.7deg, #fff200 0%, #FFF876 29.8%, #fff200 54.7%, #FFF876 78.4%, #fff200 100%);
+  border-radius: 2px;
+}
+.onboarding-confirm-seats-left {
+  color: red;
+  font-weight: 600;
+}
+.onboarding-confirm-date {
+  color: #fff;
+  font-size: 10px;
+  text-align: right;
+  margin-top: 2px;
+  font-family: 'Inter', sans-serif;
+}
+/* Google Fonts: Inter */
+
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    @apply bg-white text-black;
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+  }
+}
+
+/* Self-hosted Clash Display Variable */
+@font-face {
+  font-family: "Clash Display Variable";
+  src: url("/src/assets/fonts/ClashDisplay-Variable.woff2") format("woff2"),
+       url("/src/assets/fonts/ClashDisplay-Variable.woff") format("woff");
+  font-weight: 200 700; /* adjust based on available range */
+  font-style: normal;
+}
+
+.brand-text {
+  color: #FFF200;
+}
+.hero-text{
+    color:#DBDBDB
+}
+/* --- 3. Custom Utility and Component Styles --- */
+
+/* A custom class to create a gradient border effect. */
+.border-gradient {
+  border: 1px solid;
+  /* Creates a border image using a linear gradient. */
+  border-image-source: linear-gradient(90deg, #272300 0%, #5E5400 100%);
+  /* Ensures the entire border is covered by the gradient image. */
+  border-image-slice: 1;
+  border-radius: 8px; /* Optional: adds rounded corners to the border. */
+}
+
+.bottom-gradient{
+  background: linear-gradient(180deg, rgba(4, 3, 0, 1) 0%, rgba(48, 39, 0, 1) 100%);
+}
+.primary-btn-gradient{
+  background: linear-gradient(to right, #fff200, #FFF876, #FFF200, #FFF876, #fff200);
+}
+.gold-bottom-gradient {
+  background: linear-gradient(180deg, #1a1601 30%, #A38200 100%);
+}
+.primary-btn-gradient:hover{
+   box-shadow: 0px 0px 25px 2px rgba(255, 242, 0, 0.2), 
+          0px 0px 60px 8px rgba(255, 242, 0, 0.2);
+   transform: scale(1.02);
+   filter: brightness(1.05);
+}
+
+/* --- Scrollbar Hiding (for aesthetics) --- */
+/* This set of rules hides the browser's default scrollbar while keeping
+   the ability to scroll. This is a common design choice for a cleaner look. */
+
+/* Universal selector to target scrollbars in all elements */
+* {
+  /* For Webkit-based browsers like Chrome, Safari */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  /* For IE and Edge */
+  -ms-overflow-style: none;
+  /* For Firefox */
+  scrollbar-width: none;
+}
+
+
+/* --- 4. Component-Specific Styles --- */
+/* These styles are for custom components that are not easily styled with
+   Tailwind utility classes alone. They are more complex or reused frequently. */
+
+/* === Styles for the Dashboard Button in the Header === */
+.dashboard-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem; /* 8px space between text and icon */
+  
+  background-color: #262626; /* Dark grey background (Tailwind's neutral-800) */
+  color: #e5e7eb; /* Light grey text (Tailwind's gray-200) */
+  padding: 8px 20px;
+  border-radius: 0.5rem; /* 8px rounded corners */
+  border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle white border highlight */
+  
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 16px;
+  transition: background-color 0.2s ease;
+  height: 44px; /* Fixed height for alignment with other buttons */
+  box-sizing: border-box; /* Ensures padding and border are included in the height */
+}
+.dashboard-btn:hover {
+  background-color: #404040; /* Slightly lighter grey on hover (neutral-700) */
+}
+.dashboard-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* --- Styles for the Profile Dropdown Menu in the Header --- */
+.profile-dropdown {
+  position: relative; /* Establishes a positioning context for the dropdown menu. */
+}
+.profile-menu-button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #FFF200; /* Bright Yellow */
+  color: #111;
+  font-weight: bold;
+  font-size: 16px;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  height: 44px; /* Match Dashboard button height for alignment */
+  box-sizing: border-box;
+}
+.profile-menu-button .initials {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.profile-menu-button svg {
+  width: 16px;
+  height: 16px;
+  color: #111; /* Make chevron icon dark */
+}
+
+/* The dropdown menu itself, which is absolutely positioned relative to .profile-dropdown */
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + 8px); /* Position 8px below the button */
+  right: 0; /* Align to the right edge of the parent */
+  background-color: #111111;
+  border-radius: 8px;
+  border: 1px solid #333;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  padding: 8px;
+  z-index: 50; /* Ensure it appears above other content */
+  width: 200px;
+  overflow: hidden;
+}
+
+/* The logout button inside the dropdown menu */
+.logout-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  background-color: #000;
+  color: white;
+  padding: 10px 12px;
+  border-radius: 6px;
+  text-align: left;
+  font-size: 16px;
+  font-weight: 500;
+  border: 1px solid #333;
+  transition: background-color 0.2s ease;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+.logout-btn:hover {
+  background-color: #222;
+}
+.logout-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* ============================================ */
+/* CMS GLOBAL STYLING OVERRIDES */
+/* ============================================ */
+
+/* CMS Primary Buttons - Yellow Theme */
+.cms-btn-primary,
+[class*="cms/"] button[class*="bg-blue"],
+[data-cms="true"] button[class*="bg-blue"] {
+  background-color: #FACC15 !important; /* Yellow-400 */
+  color: #000 !important;
+  border: none !important;
+}
+.cms-btn-primary:hover,
+[class*="cms/"] button[class*="bg-blue"]:hover {
+  background-color: #EAB308 !important; /* Yellow-500 */
+}
+
+/* Force all CMS text to be visible */
+[class*="/cms"] .text-neutral-400,
+[class*="/cms"] .text-neutral-500 {
+  color: #d4d4d4 !important; /* Lighter neutral */
+}
+
+/* CMS Labels - Always visible */
+[class*="/cms"] label,
+[class*="/cms"] .block.text-sm {
+  color: #e5e5e5 !important;
+}
+
+/* CMS Input Fields */
+[class*="/cms"] input,
+[class*="/cms"] textarea,
+[class*="/cms"] select {
+  background-color: #1a1a1a !important;
+  border-color: #404040 !important;
+  color: #ffffff !important;
+}
+[class*="/cms"] input::placeholder,
+[class*="/cms"] textarea::placeholder {
+  color: #737373 !important;
+}
+
+/* CMS Action Buttons Styling */
+[class*="/cms"] button.bg-yellow-400,
+[class*="/cms"] button.bg-yellow-500,
+[class*="/cms"] .bg-yellow-400,
+[class*="/cms"] .bg-yellow-500 {
+  background-color: #FACC15 !important;
+  color: #000 !important;
+  font-weight: 600 !important;
+}
+
+/* Generic CMS buttons */
+[class*="/cms"] button:not([class*="bg-"]):not([class*="text-"]) {
+  color: #ffffff;
+}
+
+/* CMS Table/List text visibility */
+[class*="/cms"] td,
+[class*="/cms"] th,
+[class*="/cms"] tr {
+  color: #ffffff !important;
+}
+
+/* CMS Card backgrounds */
+[class*="/cms"] .bg-neutral-900,
+[class*="/cms"] .bg-neutral-800 {
+  background-color: #171717 !important;
+  border-color: #404040 !important;
+}
+
+/* Publish/Save buttons in CMS */
+[class*="/cms"] button[class*="publish"],
+[class*="/cms"] button:contains("Save"),
+[class*="/cms"] button:contains("Publish"),
+[class*="/cms"] button:contains("Create") {
+  background-color: #FACC15 !important;
+  color: #000 !important;
+}
+
+/* Delete buttons - keep red */
+[class*="/cms"] button[class*="bg-red"],
+[class*="/cms"] button.bg-red-600,
+[class*="/cms"] button.bg-red-500 {
+  background-color: #dc2626 !important;
+  color: #ffffff !important;
+}
+
+/* Fix modal text visibility */
+.fixed[class*="z-50"] .text-neutral-400 {
+  color: #d4d4d4 !important;
+}
+.fixed[class*="z-50"] label {
+  color: #e5e5e5 !important;
+}
+.fixed[class*="z-50"] input,
+.fixed[class*="z-50"] select {
+  background-color: #1a1a1a !important;
+  border-color: #404040 !important;
+  color: #ffffff !important;
+}
+
+/* Toast notifications visibility */
+[data-sonner-toast] {
+  background-color: #171717 !important;
+  color: #ffffff !important;
+  border-color: #404040 !important;
+}
+
+/* === Hero Section Gradients === */
+.bg-hero-gradient {
+  /* Combined radial glow and vertical linear blend */
+  background: 
+    /* Radial glow from bottom right */
+    radial-gradient(
+      ellipse 100% 60% at 95% 100%,
+      #ffffea 0%,
+      rgba(255, 196, 0, 0.8) 25%,
+      rgba(255, 196, 0, 0) 70%
+    ),
+    /* Main vertical blend */
+    linear-gradient(
+      to bottom,
+      #000000 0%,
+      #000000 30%,
+      #000000 45%,
+      #ffcc00 100%
+    );
+  background-color: #000;
+}
+/* === Dynamic Gradient Button === */
+.gradient-btn-dynamic {
+  /* Default Red Theme - can be overridden via inline styles */
+  --btn-bg: linear-gradient(to left, #ff0000, #ff1d18, #ff2c28, #ff3936, #ff4442, #ff4442, #ff4442, #ff4442, #ff3936, #ff2c28, #ff1d18, #ff0000);
+  --btn-border: linear-gradient(to bottom, #FF8484, rgba(255, 255, 255, 0));
+  --btn-bg-hover: linear-gradient(180deg, #D60000 0%, #900000 100%);
+  --btn-shadow: 0px 4px 12px rgba(255, 0, 0, 0.4);
+
+  position: relative;
+  background: var(--btn-bg) padding-box, var(--btn-border) border-box !important;
+  border: 1px solid transparent !important;
+  color: white !important;
+  font-weight: 700 !important;
+  padding: 16px !important;
+  border-radius: 8px !important;
+  text-transform: none !important;
+  font-size: 1.1rem !important;
+  box-shadow: var(--btn-shadow) !important;
+  transition: all 0.3s ease !important;
+}
+
+
+.gradient-btn-dynamic:hover {
+  background: var(--btn-bg-hover) padding-box, var(--btn-border) border-box !important;
+}
+
+/* === Ripple Animation === */
+@keyframes ripple {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}
+
+.animate-ripple {
+  animation: ripple 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translate(-50%, -40%); }
+  to { opacity: 1; transform: translate(-50%, -50%); }
+}
+
+.fix-title {
+  width: 100%;
+  position: relative;
+  font-size: 36px;
+  letter-spacing: 0.04em;
+  font-weight: 600;
+  font-family: 'Clash Display Variable';
+  text-align: center;
+  display: inline-block;
+  color: #fff;
+}
+.for {
+  color: #fff200;
+}
+.for {
+  color: #fff200;
+}
+.not-for {
+  color: #ff0101;
+}
+
+/* === Onboarding Success Styles === */
+.onboarding-success-card {
+  width: 100%;
+  max-width: 500px; /* Added max-width for better desktop view */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  backdrop-filter: blur(4px);
+  border-radius: 16px;
+  background-color: rgba(0, 0, 0, 0.75);
+  border: 1px solid #2d2d2d;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px;
+  text-align: center;
+  font-size: 20px;
+  color: #fff;
+  font-family: 'Clash Display Variable', sans-serif;
+  animation: fadeIn 0.5s ease;
+  box-shadow: 0 0 12px 0 rgba(255,255,255,0.10) inset;
+}
+
+.onboarding-success-img {
+  width: 240px;
+  position: relative;
+  max-height: 100%;
+  object-fit: cover;
+  margin-bottom: 24px; /* Added spacing */
+}
+
+.onboarding-success-content {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 40px;
+  width: 100%;
+}
+
+.onboarding-success-text-group {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centered alignment */
+  gap: 12px;
+}
+
+.onboarding-success-title-wrapper {
+  align-self: stretch;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.onboarding-success-title {
+  flex: 1;
+  position: relative;
+  letter-spacing: 0.04em;
+  line-height: 28px;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: #fff;
+}
+
+.onboarding-success-subtitle {
+  align-self: stretch;
+  position: relative;
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+  color: #8a8a8a;
+  text-align: center;
+}
+
+.onboarding-success-action-group {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: left;
+  font-size: 16px;
+  font-family: 'Inter', sans-serif;
+  width: 100%;
+}
+
+.onboarding-success-btn {
+  align-self: stretch;
+  border-radius: 4px;
+  background: linear-gradient(90.7deg, #fff200, #fff876 29.76%, #fff200 54.66%, #fff876 78.37%, #fff200), linear-gradient(#fff200, #fff200);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 21.5px;
+  gap: 8px;
+  cursor: pointer;
+  text-decoration: none; /* For anchor tags */
+  color: #000;
+  border: none;
+  font-family: 'Inter', sans-serif;
+  transition: filter 0.2s, transform 0.1s;
+}
+
+.onboarding-success-btn:hover {
+  filter: brightness(1.05);
+  transform: scale(1.01);
+}
+
+.onboarding-success-btn-icon {
+  width: 24px;
+  height: 24px;
+  position: relative;
+  border-radius: 10000px;
+  object-fit: cover;
+}
+
+.onboarding-success-btn-text {
+  position: relative;
+  font-weight: 600;
+  color: #000;
+}

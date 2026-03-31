@@ -1,0 +1,34 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.wrapper::-webkit-scrollbar{
+    margin-top: 20px;
+    height:8px
+}
+
+.wrapper::-webkit-scrollbar-track{
+    background: gray;
+    border-radius: 100vw;
+    margin-block: .5em;
+}
+
+
+.wrapper::-webkit-scrollbar-thumb{
+    background:rgb(223, 232, 205);
+    border-radius: 100vw;
+}
+
+html, body {
+    overflow: auto; /* keep scrolling */
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;     /* Firefox */
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}
+

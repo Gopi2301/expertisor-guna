@@ -1,0 +1,96 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: expertisor_frontend
+    restart: always
+    expose:
+      - "80"
+    volumes:
+      - uploads:/usr/share/nginx/html/uploads
+    environment:
+      - VITE_API_URL=${VITE_API_URL:-http://localhost:8000/api}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      - backend
+    networks:
+      - coolify
+
+  backend:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    container_name: expertisor_backend
+    restart: always
+    environment:
+      - DB_HOST=${DB_HOST:-db}
+      - DB_NAME=${DB_NAME:-expertisor}
+      - DB_USER=${DB_USER:-user}
+      - DB_PASSWORD=${DB_PASSWORD:-password}
+    expose:
+      - "80"
+    volumes:
+      - uploads:/var/www/html/uploads
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    networks:
+      - coolify
+    depends_on:
+      - db
+
+  sso:
+    build:
+      context: ./sso
+      dockerfile: Dockerfile
+    container_name: expertisor_sso
+    restart: always
+    env_file:
+      - .env
+    environment:
+      - PORT=5999
+      - CLIENT_URL=${CLIENT_URL:-https://expertisoracademy.in}
+      - API_URL=${API_URL:-https://expertisoracademy.in}
+      - PUBLIC_URL=${PUBLIC_URL:-https://expertisoracademy.in}
+      # Secrets are now loaded from .env via env_file to avoid empty overrides
+      # - APP_JWT_SECRET=${APP_JWT_SECRET}
+      # - GRAPHY_API_TOKEN=${GRAPHY_API_TOKEN}
+      # - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+      # - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
+      # - GITHUB_CLIENT_ID=${GITHUB_CLIENT_ID}
+      # - GITHUB_CLIENT_SECRET=${GITHUB_CLIENT_SECRET}
+    expose:
+      - "5999"
+    networks:
+      - coolify
+
+  db:
+    image: mysql:8.0
+    container_name: expertisor_db
+    restart: always
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_DATABASE: ${DB_NAME:-expertisor}
+      MYSQL_USER: ${DB_USER:-user}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-password}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-rootpassword}
+    expose:
+      - "3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./api/schema.sql:/docker-entrypoint-initdb.d/init.sql
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    networks:
+      - coolify
+
+networks:
+  coolify:
+    external: true
+
+volumes:
+  db_data:
+  uploads:
