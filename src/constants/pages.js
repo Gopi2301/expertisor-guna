@@ -6685,22 +6685,22 @@ export const pages = {
   business_workshops: {
     hero_section: {
       heading:
-        "Struggling to make your firm consistently profitable?  Even if you’re working 10+ hours a day?",
-      highlights: ["Struggling", "consistently profitable?", "10+ hours"],
-      para: "Learn the exact ₹100M+ business systems I used to price confidently, attract steady clients, and run a profitable firm without undercharging, chasing leads, or guessing what works.",
+        "Still Spending Hours Editing One Video While Others Finish 5 And Earn More?",
+      highlights: ["Spending Hours Editing", "Earn More"],
+      para: "Learn the exact editing system to finish videos faster, handle more clients and increase income without wasting months figuring things out",
       hero_image: "/webinar-hero-img.webp",
       features: [
         {
           i: "/business-webinar/icons/dangerous.png",
-          para: "No big team",
+          para: "No Low Pay work",
         },
         {
           i: "/business-webinar/icons/dangerous.png",
-          para: "No heavy marketing",
+          para: "No Deadline Rush",
         },
         {
           i: "/business-webinar/icons/dangerous.png",
-          para: "No business experience required",
+          para: "No Quality Compromise",
         },
       ],
       webinar_details: [
