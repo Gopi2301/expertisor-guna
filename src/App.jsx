@@ -348,7 +348,7 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Home />} />
 
-            <Route path="/workshops" element={<Workshops data={pages.business_webinar}/>} />
+            <Route path="/workshops" element={<Workshops data={pages.business_workshops}/>} />
 
 
 

@@ -6682,4 +6682,276 @@ export const pages = {
       ],
     },
   },
+  business_workshops: {
+    hero_section: {
+      heading:
+        "Struggling to make your firm consistently profitable?  Even if you’re working 10+ hours a day?",
+      highlights: ["Struggling", "consistently profitable?", "10+ hours"],
+      para: "Learn the exact ₹100M+ business systems I used to price confidently, attract steady clients, and run a profitable firm without undercharging, chasing leads, or guessing what works.",
+      hero_image: "/webinar-hero-img.webp",
+      features: [
+        {
+          i: "/business-webinar/icons/dangerous.png",
+          para: "No big team",
+        },
+        {
+          i: "/business-webinar/icons/dangerous.png",
+          para: "No heavy marketing",
+        },
+        {
+          i: "/business-webinar/icons/dangerous.png",
+          para: "No business experience required",
+        },
+      ],
+      webinar_details: [
+        {
+          label: "Date",
+          value: "20th Dec 2025",
+          icon: "/business-webinar/icons/calendar_month.svg",
+        },
+        {
+          label: "Time",
+          value: "11:00 Am (IST)",
+          icon: "/business-webinar/icons/schedule.svg",
+        },
+        {
+          label: "Language",
+          value: "English",
+          icon: "/business-webinar/icons/translate.svg",
+        },
+        {
+          label: "Duration",
+          value: "2 hours",
+          icon: "/business-webinar/icons/calendar_clock.svg",
+        },
+      ],
+    },
+    logo_section: {
+      logos: Array.from(
+        { length: 22 },
+        (_, i) => `/business-webinar/business-webinar-client-logo-${i + 1}.svg`,
+      ),
+    },
+    lead_gen_card: {
+      title: "Why Your Firm Isn't Stable Yet?",
+      cta: "Yes, This is Exactly My Problem",
+      highlight_word: "Isn't Stable",
+      subtitle: "Mistakes",
+      tags: [
+        { label: "Need More experience", type: "error" },
+        { label: "More contacts", type: "error" },
+        { label: "More efforts", type: "error" },
+        { label: "Better design", type: "error" },
+      ],
+      costingTitle: "What This Belief Is Costing You",
+      costingList: [
+        "Income feels unpredictable",
+        "Clients push scope without paying more",
+        "Pricing is guesswork",
+        "Hiring feels risky",
+        "Everything depends on you",
+      ],
+      systemLabel: "system",
+      systemText: "This is a talent problem.",
+      systemHighlight: "talent",
+    },
+    comparison_section: {
+      sectionTitle: "How Most Firms Try to Fix This (And Why It Backfires)",
+      sectionTitleHighlight: "Why It Backfires",
+      mistakes: {
+        title: "What most firms do under pressure",
+        highlight: "under pressure",
+        items: [
+          "Take more projects to stabilize income",
+          "Say yes to every client",
+          "Discount fees to close deals",
+          "Handle everything themselves",
+        ],
+      },
+      solutions: {
+        title: "What actually creates stability",
+        highlight: "stability",
+        items: [
+          "Clear positioning",
+          "Pricing systems that protect margins",
+          "Scope control before execution",
+          "Client selection rules",
+          "A repeatable delivery structure",
+        ],
+      },
+      cta: "Yes, I've Been Doing This Wrong",
+    },
+    learn_section: {
+      title: "What You'll Learn?",
+      highlightWord: "Learn",
+      subtitle: "In this 2-hour Live ProClass, you’ll learn",
+      image: "/business-webinar/author.webp",
+      cta: "I Want to Learn This Live",
+      list: [
+        "How to price without negotiating",
+        "How to stop scope creep before it Starts",
+        "How to select the right clients",
+        "How to build a Proven firm system",
+      ],
+      whoIsFor: [
+        {
+          text: "Architects, Interior designers, Construction professionals planning to Start & Scale their own firm",
+          type: "success",
+          fullWidth: true,
+        },
+        {
+          text: "Firm owners stuck at the same revenue level",
+          type: "success",
+        },
+        { text: "People unwilling to change how they work", type: "error" },
+        { text: "People looking for shortcuts", type: "error" },
+      ],
+    },
+    about_author: {
+      title: "Who You're Learning From?",
+      highlightWord: "Learning From?",
+      subtitle: "In this 2-hour Live ProClass, you'll learn",
+      image: "/business-webinar/result_author.webp", // Placeholder, user should update
+      cta: "Guide Me to Build a Profitable Firm",
+      btnImage: "/business-webinar/btnImg.png",
+      list: [
+        {
+          text: "Left a CEO role to build his own firm",
+          highlight: "CEO",
+          icon: "/business-webinar/icons/apartment.png",
+        },
+        {
+          text: "Scaled Space Mush to ₹100M+ in revenue",
+          highlight: "₹100M+",
+          icon: "/business-webinar/icons/ruppee.png",
+        },
+        {
+          text: "Founder of DeHub (India's 2nd largest architect community)",
+          highlight: "DeHub",
+          icon: "/business-webinar/icons/groups.png",
+        },
+        {
+          text: "15+ years across architecture, interiors, and construction",
+          highlight: "15+ years",
+          icon: "/business-webinar/icons/home_work.png",
+        },
+        {
+          text: "Mentored 1000's of firm founder",
+          highlight: "1000's",
+          icon: "/business-webinar/icons/school.png",
+        },
+      ],
+    },
+    results_section: {
+      title: "Real Results From Professionals Like You",
+      highlight: "Real Results",
+      subtitle: "Your win can be the Next one!",
+      cta: "Yes, I Want Results Like This",
+      main_video_image: "/business-webinar/result_author.webp",
+      floating_profiles: [
+        {
+          src: "/business-webinar/happyClients/client_1.png",
+          size: 90,
+          style: { bottom: "450px", left: "220px" },
+        },
+        {
+          src: "/business-webinar/happyClients/client_2.png",
+          size: 70,
+          style: { bottom: "10px", right: "280px" },
+        },
+        {
+          src: "/business-webinar/happyClients/client_3.png",
+          size: 60,
+          style: { top: "200px", right: "0px" },
+        },
+        {
+          src: "/business-webinar/happyClients/client_4.png",
+          size: 50,
+          style: { bottom: "100px", left: "160px" },
+        },
+        {
+          src: "/business-webinar/happyClients/client_5.png",
+          size: 85,
+          style: { top: "40px", right: "150px" },
+        },
+        {
+          src: "/business-webinar/happyClients/client_6.png",
+          size: 75,
+          style: { bottom: "50px", left: "50px" },
+        },
+        {
+          src: "/business-webinar/happyClients/client_7.png",
+          size: 55,
+          style: { top: "120px", left: "80px" },
+        },
+        {
+          src: "/business-webinar/happyClients/client_8.png",
+          size: 65,
+          style: { bottom: "200px", right: "50px" },
+        },
+        {
+          src: "/business-webinar/happyClients/client_9.png",
+          size: 95,
+          style: { top: "-20px", left: "400px" },
+        },
+        {
+          src: "/business-webinar/happyClients/client_10.png",
+          size: 45,
+          style: { bottom: "-30px", left: "500px" },
+        },
+      ],
+    },
+    without_system: {
+      title: "With A System Vs Without A System",
+      highlight: "With A System",
+      highlight2: "Without A System",
+      subtitle:
+        "This is a 2 hour live ProClass Focused on business systems, not motivation",
+      image: "/business-webinar/without_system.webp",
+      cta: "I Want a Clear System for My Firm",
+    },
+    cta: {
+      title: "You Don't Need Another Year Of Trial And Error.",
+      titleHighlight: "Trial And Error.",
+      label: "2 HR LIVE PROCLASS",
+      subtitle:
+        "You Can Keep Figuring It Out For Years... (Or) Take One Clear Step Now",
+      subtitleHighlight: "One Clear Step",
+      buttonText: "Join the Live ProClass",
+      disclaimer: "* Seats are limited to keep the session interactive",
+      image: "/business-webinar/cta-author.webp", // specific image for CTA
+    },
+    faq: {
+      title: "FREQUENTLY ASKED QUESTIONS (FAQ)",
+      highlight: "(FAQ)",
+      subtitle: "Got questions? We've got answers.",
+      list: [
+        {
+          question: "Is this webinar really live?",
+          answer:
+            "Yes! This is a live, interactive session where I’ll be teaching in real-time. You’ll also have the chance to ask questions directly during the Q&A segment.",
+        },
+        {
+          question: "Will there be a recording provided?",
+          answer:
+            "We highly recommend attending live to get the full experience and bonuses. However, a limited-time replay might be available for registered attendees, but showing up live ensures you don't miss anything.",
+        },
+        {
+          question: "Who is this Masterclass for?",
+          answer:
+            "This is specifically for Architects, Interior Designers, and Civil Engineers who are running their own firms or planning to start one and want to build a stable, profitable business.",
+        },
+        {
+          question: "Do I need any prior business experience?",
+          answer:
+            "Not at all. The systems I teach are designed to be simple and actionable, whether you're just starting out or have been running a firm for years without consistent results.",
+        },
+        {
+          question: "How long is the session?",
+          answer:
+            "The core training will be about 90 minutes, followed by a Q&A session. I recommend setting aside 2 hours to get the most out of it.",
+        },
+      ],
+    },
+  },
 };

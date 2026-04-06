@@ -1,6 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import stepDoneIcon from "../../assets/frame.svg";
+import { submitToZoho } from "../../utils/zohoApi";
+import WorkshopThankYou from "./WorkshopThankYou";
+import toast from "react-hot-toast";
 
 const pricingItems = [
   {
@@ -24,7 +27,7 @@ const formatPrice = (value) => `\u20B9${value.toLocaleString("en-IN")}`;
 const yellowGradient =
   "linear-gradient(90.7deg, #FFF200 0%, #FFF876 29.76%, #FFF200 54.66%, #FFF876 78.37%, #FFF200 100%)";
 
-const WorkshopSeatPopup = ({ isOpen, onClose, seatsLeft = 13 }) => {
+const WorkshopSeatPopup = ({ isOpen, onClose, seatsLeft = 13, zohoConfig }) => {
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
   const [fullName, setFullName] = useState("");
@@ -32,6 +35,10 @@ const WorkshopSeatPopup = ({ isOpen, onClose, seatsLeft = 13 }) => {
   const [phone, setPhone] = useState("");
   const [errors, setErrors] = useState({});
   const [creditApplied, setCreditApplied] = useState(true);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submissionError, setSubmissionError] = useState(null);
+  const [dealId, setDealId] = useState(null);
+  const [contactId, setContactId] = useState(null);
 
   const total = useMemo(
     () => pricingItems.reduce((sum, item) => sum + item.price, 0),
@@ -62,6 +69,9 @@ const WorkshopSeatPopup = ({ isOpen, onClose, seatsLeft = 13 }) => {
     if (!isOpen) {
       setStep(1);
       setErrors({});
+      setSubmissionError(null);
+      setDealId(null);
+      setContactId(null);
     }
   }, [isOpen]);
 
@@ -90,8 +100,162 @@ const WorkshopSeatPopup = ({ isOpen, onClose, seatsLeft = 13 }) => {
     setStep(2);
   };
 
-  const handleSecureSeat = () => {
-    navigate("/proclass/ssr/seat");
+  const handleSecureSeat = async () => {
+    console.log("🚀 handleSecureSeat called");
+    if (!zohoConfig) {
+        console.warn("⚠️ No zohoConfig provided to the popup");
+        navigate("/proclass/ssr/seat");
+        return;
+    }
+
+    setIsSubmitting(true);
+    setSubmissionError(null);
+
+    const payload = {
+        name: fullName,
+        email: email,
+        phone: "+91" + phone,
+        // Deal fields for Zoho CRM
+        layout_id: zohoConfig.layoutId,
+        Amount: zohoConfig.Amount,
+        Course_Name_Text: zohoConfig.Course_Name_Text,
+        Deal_Name: zohoConfig.Deal_Name,
+        Workshop: zohoConfig.Workshop,
+        Course_Name: zohoConfig.Course_Name,
+        Call_Status: zohoConfig.Call_Status,
+        Course_Interest: zohoConfig.Course_Interest,
+        Pipeline: zohoConfig.Pipeline,
+        Stage: "Lead Captured",
+    };
+
+    try {
+        const API_BASE_URL = import.meta.env.VITE_API_URL || "/api";
+        const cleanBaseUrl = API_BASE_URL.replace(/\/$/, "");
+        
+        // 1. Submit to Zoho CRM
+        console.log("🚀 Starting Zoho submission...");
+        const result = await submitToZoho(`${cleanBaseUrl}/zoho/submit-form.php`, payload);
+        
+        // Extract IDs for payment linking
+        const responseData = result.data || result;
+        const createdDealId = responseData.zoho_deal?.data?.[0]?.details?.id;
+        const createdContactId = responseData.zoho_contact?.data?.[0]?.details?.id;
+
+        if (!createdDealId) {
+            console.error("❌ Failed to get Deal ID from Zoho response", result);
+            throw new Error("Failed to create deal in CRM");
+        }
+
+        setDealId(createdDealId);
+        setContactId(createdContactId);
+        console.log(`✅ Zoho Lead Created! Deal ID: ${createdDealId}`);
+
+        // 2. Create Razorpay Order
+        console.log("💳 Creating Razorpay order...");
+        const orderResponse = await fetch(`${cleanBaseUrl}/razorpay/create-order.php`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                amount: zohoConfig.Amount || 99,
+                deal_id: createdDealId,
+                contact_id: createdContactId,
+                email: email,
+                phone: phone,
+            }),
+        });
+
+        const orderResult = await orderResponse.json();
+        
+        if (!orderResponse.ok) {
+            throw new Error(orderResult.error || "Failed to initiate payment gateway");
+        }
+
+        // 3. Open Razorpay Checkout Modal
+        console.log("✨ Opening Razorpay Checkout...");
+        const orderData = orderResult.data || orderResult;
+        openRazorpayCheckout(orderData, createdDealId, cleanBaseUrl);
+
+    } catch (error) {
+        console.error("Submission/Payment error:", error);
+        setSubmissionError(error.message || "An unexpected error occurred. Please try again.");
+        toast.error("Process failed. Please try again.");
+        setIsSubmitting(false);
+    }
+  };
+
+  const openRazorpayCheckout = (orderData, currentDealId, cleanBaseUrl) => {
+    if (!window.Razorpay) {
+        console.error("❌ Razorpay SDK not loaded");
+        setSubmissionError("Payment gateway not loaded. Please refresh the page.");
+        setIsSubmitting(false);
+        return;
+    }
+
+    const options = {
+      key: orderData.key_id,
+      amount: orderData.amount,
+      currency: orderData.currency,
+      name: "Expertisor Academy",
+      description: "Workshop Reserve Seat",
+      order_id: orderData.order_id,
+      prefill: {
+        name: fullName,
+        email: email,
+        contact: phone,
+      },
+      theme: {
+        color: "#FFF200",
+      },
+      handler: async function (response) {
+        await verifyPayment(response, currentDealId, cleanBaseUrl);
+      },
+      modal: {
+        ondismiss: function () {
+          console.log("🚫 Payment cancelled by user");
+          setIsSubmitting(false);
+          setSubmissionError("Payment was cancelled. Secure your seat to continue.");
+        },
+      },
+    };
+
+    const rzp = new window.Razorpay(options);
+    rzp.open();
+  };
+
+  const verifyPayment = async (razorpayResponse, currentDealId, cleanBaseUrl) => {
+    console.log("🔍 Verifying payment...");
+    try {
+      const response = await fetch(`${cleanBaseUrl}/razorpay/verify-payment.php`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          razorpay_order_id: razorpayResponse.razorpay_order_id,
+          razorpay_payment_id: razorpayResponse.razorpay_payment_id,
+          razorpay_signature: razorpayResponse.razorpay_signature,
+          deal_id: currentDealId,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || "Payment verification failed");
+      }
+
+      console.log("🎉 Payment Verified Successfully!");
+      toast.success("Seat Secured!");
+      setStep(3); // Success Step
+    } catch (err) {
+      console.error("Payment verification error:", err);
+      setSubmissionError(err.message || "Payment verification failed. Please contact support.");
+      toast.error("Verification failed.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (!isOpen) return null;
@@ -137,7 +301,7 @@ const WorkshopSeatPopup = ({ isOpen, onClose, seatsLeft = 13 }) => {
                 step === 1 ? "border-[#FFF200]" : "border-transparent"
               }`}
             >
-              {step === 2 ? (
+              {step >= 2 ? (
                 <img
                   src={stepDoneIcon}
                   alt=""
@@ -146,7 +310,7 @@ const WorkshopSeatPopup = ({ isOpen, onClose, seatsLeft = 13 }) => {
                 />
               ) : (
                 <div className="flex h-5 w-5 items-center justify-center rounded-full bg-[#FFF200] text-[10px] font-semibold text-black sm:h-6 sm:w-6 sm:text-xs">
-                  1
+                   1
                 </div>
               )}
               <span className="text-[10px] text-white/90 sm:text-xs md:text-sm">
@@ -156,18 +320,27 @@ const WorkshopSeatPopup = ({ isOpen, onClose, seatsLeft = 13 }) => {
 
             <div
               className={`flex items-center justify-center gap-2 border-b-[2px] px-2 py-3 sm:px-4 sm:py-4 ${
-                step === 2 ? "border-[#FFF200]" : "border-transparent"
+                step >= 2 ? "border-[#FFF200]" : "border-transparent"
               }`}
             >
-              <div
-                className={`flex h-5 w-5 items-center justify-center rounded-full text-[10px] font-semibold sm:h-6 sm:w-6 sm:text-xs ${
-                  step === 2
-                    ? "bg-[#FFF200] text-black"
-                    : "bg-[#4A4A4A] text-white"
-                }`}
-              >
-                2
-              </div>
+              {step === 3 ? (
+                <img
+                  src={stepDoneIcon}
+                  alt=""
+                  aria-hidden="true"
+                  className="h-5 w-5 sm:h-6 sm:w-6"
+                />
+              ) : (
+                <div
+                    className={`flex h-5 w-5 items-center justify-center rounded-full text-[10px] font-semibold sm:h-6 sm:w-6 sm:text-xs ${
+                    step >= 2
+                        ? "bg-[#FFF200] text-black"
+                        : "bg-[#4A4A4A] text-white"
+                    }`}
+                >
+                    2
+                </div>
+              )}
               <span className="text-[10px] text-white/90 sm:text-xs md:text-sm">
                 Confirm Seat
               </span>
@@ -175,7 +348,7 @@ const WorkshopSeatPopup = ({ isOpen, onClose, seatsLeft = 13 }) => {
           </div>
         </div>
 
-        {step === 1 ? (
+        {step === 1 && (
           <div className="bg-[#050505] px-3 py-4 sm:px-4 sm:py-5">
             <div className="mx-auto flex flex-col gap-3">
               <div>
@@ -247,7 +420,9 @@ const WorkshopSeatPopup = ({ isOpen, onClose, seatsLeft = 13 }) => {
               </button>
             </div>
           </div>
-        ) : (
+        )}
+
+        {step === 2 && (
           <div className="bg-[#050505]">
             <div className="px-3 py-4 sm:px-4 sm:py-5">
               <div className="space-y-3">
@@ -294,29 +469,26 @@ const WorkshopSeatPopup = ({ isOpen, onClose, seatsLeft = 13 }) => {
                       <span className="text-sm text-red-500 sm:text-base">
                         - {formatPrice(creditAmount)}
                       </span>
-                      {/* <button
-                        type="button"
-                        onClick={() => setCreditApplied(false)}
-                        className="flex h-6 w-6 items-center justify-center rounded-full border border-white/15 text-sm text-white/70 transition hover:border-white/30 hover:text-white"
-                        aria-label="Remove credit"
-                      >
-                        x
-                      </button> */}
                     </div>
                   </div>
                 </div>
               </div>
             </div>
 
+            {submissionError && (
+                <p className="px-4 py-2 text-xs text-red-500 text-center">{submissionError}</p>
+            )}
+
             <div className="border-t border-white/10 bg-[#1D1D1D] px-3 py-3 sm:px-4">
               <div className="flex items-end gap-6">
                 <button
                   type="button"
                   onClick={handleSecureSeat}
-                  className="h-10 flex-1 rounded-md text-sm font-semibold text-black transition hover:brightness-105 sm:h-11 sm:text-base"
+                  disabled={isSubmitting}
+                  className="h-10 flex-1 rounded-md text-sm font-semibold text-black transition hover:brightness-105 sm:h-11 sm:text-base disabled:opacity-50"
                   style={{ background: yellowGradient }}
                 >
-                  Secure Seat
+                  {isSubmitting ? "Securing..." : "Secure Seat"}
                 </button>
 
                 <div className="min-w-fit text-right">
@@ -345,6 +517,12 @@ const WorkshopSeatPopup = ({ isOpen, onClose, seatsLeft = 13 }) => {
               </div>
             </div>
           </div>
+        )}
+
+        {step === 3 && (
+            <div className="bg-[#050505]">
+                <WorkshopThankYou whatsappLink="#" />
+            </div>
         )}
       </div>
     </div>

@@ -75,6 +75,18 @@ const Workshops = ({ data }) => {
         return () => clearInterval(interval);
     }, []);
 
+    const zohoConfig = {
+        layoutId: "1070637000001855053",
+        Amount: "99",
+        Course_Name_Text: "Video Editing Course",
+        Deal_Name: "Video Editing | WS",
+        Workshop: "1070637000003468106",
+        Course_Name: "1070637000002915041",
+        Call_Status: "Not Called",
+        Course_Interest: "Cold",
+        Pipeline: "Workshop",
+    };
+
     if (!data) return null;
 
     return (
@@ -228,9 +240,11 @@ const Workshops = ({ data }) => {
                 isOpen={isSeatPopupOpen}
                 onClose={() => setIsSeatPopupOpen(false)}
                 seatsLeft={seatsLeft}
+                zohoConfig={zohoConfig}
             />
         </div>
     );
+
 };
 
 export default Workshops;
