@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "npm run optimize:images && npm run optimize:mentors && npm run optimize:public && vite build",
+    "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
     "analyze": "cross-env ANALYZE=true vite build",
