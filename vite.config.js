@@ -1,7 +1,6 @@
 // vite.config.js - Performance Optimizations
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import { imagetools } from "vite-imagetools";
 import { compression } from "vite-plugin-compression2";
 import { visualizer } from "rollup-plugin-visualizer";
 import path from "path";
@@ -9,7 +8,6 @@ import path from "path";
 export default defineConfig({
   plugins: [
     react(),
-    imagetools(),
     // Gzip compression
     compression({
       algorithm: 'gzip',
