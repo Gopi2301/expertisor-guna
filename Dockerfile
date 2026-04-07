@@ -3,8 +3,8 @@ FROM node:20-alpine AS build
 
 WORKDIR /app
 
-# Install native deps required by sharp (used by vite-imagetools)
-RUN apk add --no-cache libc6-compat vips-dev python3 make g++
+# Install libc6-compat for Alpine musl/glibc compatibility
+RUN apk add --no-cache libc6-compat
 
 # Declare build args
 ARG VITE_SSO_URL

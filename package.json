@@ -61,11 +61,9 @@
     "postcss": "^8.5.6",
     "react-intersection-observer": "^10.0.0",
     "rollup-plugin-visualizer": "^6.0.5",
-    "sharp": "^0.34.4",
     "tailwindcss": "^3.4.17",
     "terser": "^5.44.1",
     "vite": "^7.1.1",
-    "vite-imagetools": "^9.0.0",
     "vite-plugin-compression2": "^2.3.1"
   }
 }
